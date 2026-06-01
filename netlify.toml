@@ -1,1 +1,2 @@
-[functions]\n  directory = "netlify/functions"\n
+[functions]
+  directory = "netlify/functions"
