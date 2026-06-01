@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>متجر الألعاب</title>
+
+<link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.15.0/moyasar.css">
+<script src="https://cdn.moyasar.com/mpf/1.15.0/moyasar.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#0b0712;--green:#15101f;--orange:#8b5cf6;--cream:#ffffff;--text:#ffffff;--muted:#c9bfd9;--shadow:0 18px 40px rgba(139,92,246,.18)}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);font-family:Tahoma,Arial,sans-serif;color:var(--text)} button{border:0;border-radius:18px;padding:14px 20px;font-weight:900;cursor:pointer;box-shadow:0 8px 0 rgba(139,92,246,.22);font-size:16px} .orange{background:var(--orange);color:white} .green{background:var(--green);color:white} .outline{background:#120d1b;border:2px solid #8b5cf6;color:#fff;box-shadow:none} .top{background:var(--green);color:white;position:sticky;top:0;z-index:10} .nav{max-width:1180px;margin:auto;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px} .brand{font-size:24px;font-weight:1000;cursor:pointer} .nav div:last-child{display:flex;gap:8px;flex-wrap:wrap} .nav button{box-shadow:none;background:rgba(255,255,255,.09);color:white;border:1px solid rgba(139,92,246,.28)} .nav .orange{background:var(--orange)} .hero{background:var(--green);color:white} .hero-inner{max-width:1180px;margin:auto;padding:70px 22px;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center} h1{font-size:clamp(42px,7vw,82px);line-height:1;margin:0 0 18px} p{line-height:1.9;color:var(--muted)} .hero p{color:#eff8ee;font-size:20px} .panel{background:rgba(255,255,255,.1);border:1px solid rgba(139,92,246,.28);border-radius:34px;padding:24px} .chips{display:grid;grid-template-columns:1fr 1fr;gap:12px} .chip{padding:18px;border-radius:18px;background:rgba(255,255,255,.13);font-weight:900} .section{max-width:1180px;margin:auto;padding:44px 22px} h2{font-size:34px;color:#fff;margin:0 0 22px} .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px} .card{background:#120d1b;border-radius:28px;overflow:hidden;box-shadow:var(--shadow)} .cover{height:190px;background:linear-gradient(135deg,#1a102a,#8b5cf6);display:grid;place-items:center;position:relative;color:white} .cover b{font-size:46px;text-shadow:0 6px 0 rgba(0,0,0,.16)} .body{padding:20px} h3{font-size:25px;margin:0 0 8px;color:#fff} .tag{display:inline-block;padding:7px 10px;border-radius:999px;background:#241733;color:#fff;font-weight:900;font-size:13px;margin:3px} .price{font-size:22px;font-weight:1000;color:var(--orange);margin:12px 0} .wide{width:100%;margin-top:8px} .page{display:none} .active{display:block} .product{display:grid;grid-template-columns:1fr 1fr;gap:26px} .bigcover{height:430px;border-radius:30px;background:linear-gradient(135deg,#1a102a,#8b5cf6);display:grid;place-items:center;color:white;box-shadow:var(--shadow)} .bigcover b{font-size:70px;text-shadow:0 8px 0 rgba(0,0,0,.16)} .box{background:#120d1b;border-radius:30px;padding:28px;box-shadow:var(--shadow);border:2px solid rgba(139,92,246,.18)} .auth{max-width:520px;margin:44px auto;background:#120d1b;border-radius:30px;padding:28px;text-align:center;box-shadow:var(--shadow)} input{width:100%;height:56px;border-radius:18px;border:2px solid rgba(139,92,246,.32);padding:0 16px;font-size:17px;margin:8px 0 12px;background:#171124;color:#fff} .msg{background:#241733;border-radius:16px;padding:12px 14px;color:#f2eaff;font-weight:900;line-height:1.7;margin-top:12px} .hidden{display:none!important} .gamewrap{position:fixed;inset:0;background:#111;z-index:99;display:none} .gamewrap.on{display:block} .gametop{height:54px;background:var(--green);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-weight:900} iframe{width:100%;height:calc(100vh - 54px);border:0;background:#120d1b} @media(max-width:900px){.hero-inner,.product,.grid{grid-template-columns:1fr}}
+
+body{
+  background:
+    radial-gradient(circle at 20% 10%, rgba(139,92,246,.22), transparent 30%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,.06), transparent 25%),
+    #0b0712;
+}
+.card,.box,.auth{
+  border:1px solid rgba(139,92,246,.22);
+}
+.cover,.bigcover{
+  border:1px solid rgba(255,255,255,.08);
+}
+input::placeholder{color:#8f83a3}
+.nav button:hover, button:hover{filter:brightness(1.08)}
+.outline{
+  background:#ffffff;
+  color:#15101f;
+  border:2px solid #8b5cf6;
+}
+.tag{
+  background:#241733!important;
+  color:#efe7ff!important;
+  border:1px solid rgba(139,92,246,.35);
+}
+.price{color:#a78bfa!important}
+
+
+.mysr-form{
+  background:#fff;
+  color:#111;
+  border-radius:22px;
+  padding:18px;
+  direction:ltr;
+  text-align:left;
+}
+.mysr-form *{
+  font-family:Tahoma,Arial,sans-serif!important;
+}
+
+</style>
+</head>
+<body>
+<header class="top"><div class="nav"><div class="brand" onclick="show('home')">🎲 متجر الألعاب</div><div><button onclick="show('home')">الألعاب</button><button onclick="library()">مكتبتي</button><button class="orange" id="loginBtn" onclick="show('auth')">دخول</button><button id="logoutBtn" class="hidden" onclick="logout()">خروج</button></div></div></header>
+
+<main id="home" class="page active">
+<section class="hero"><div class="hero-inner"><div><h1>ألعاب للّمة<br>والتحدي</h1><p>متجر ألعاب عربية تفاعلية. سجّل، اشترِ، وتظهر اللعبة في مكتبتك.</p><button class="orange" onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})">استعرض الألعاب</button></div><div class="panel"><div class="chips"><div class="chip">🎮 بدون تحميل</div><div class="chip">👥 لعب جماعي</div><div class="chip">🔒 حساب ومكتبة</div><div class="chip">⚡ تشغيل مباشر</div></div></div></div></section>
+<section class="section" id="games"><h2>الألعاب</h2><div class="grid"><div class="card"><div class="cover"><b>خمنها</b></div><div class="body"><h3>لعبة خمنها</h3><p style="color:#c9bfd9">خمن الأمثال، المدن، والأسماء من الصور والرموز.</p><span class="tag">متاحة</span><span class="tag">45 سؤال</span><div class="price">24.99 ر.س</div><button class="orange wide" onclick="showProduct()">عرض اللعبة</button></div></div><div class="card"><div class="cover"><b>تحدي الصور</b></div><div class="body"><h3>تحدي الصور</h3><p style="color:#c9bfd9">قريبًا.</p><span class="tag">قريبًا</span><div class="price">قريبًا</div><button class="outline wide">قريبًا</button></div></div><div class="card"><div class="cover"><b>بدون كلام</b></div><div class="body"><h3>بدون كلام</h3><p style="color:#c9bfd9">قريبًا.</p><span class="tag">قريبًا</span><div class="price">قريبًا</div><button class="outline wide">قريبًا</button></div></div></div></section>
+</main>
+
+<main id="product" class="page"><section class="section product"><div class="bigcover"><b>خمنها</b></div><div class="box"><h2>لعبة خمنها</h2><p style="color:#c9bfd9">لعبة تفاعلية للتجمعات. تعرض صورًا ورموزًا، وعلى الفرق تخمين الأمثال، المدن، والأسماء.</p><span class="tag">3 جولات</span><span class="tag">فريقين</span><span class="tag">تشغيل مباشر</span><div class="price">24.99 ر.س</div><button class="orange wide" id="buyNow" onclick="buy()">اشترِ الآن</button><button class="green wide hidden" id="playNow" onclick="openGame()">العب الآن</button><button class="outline wide" onclick="show('home')">رجوع</button><div class="msg" id="productMsg">سجلي دخول أولًا للتحقق من مكتبتك.</div></div></section></main>
+
+<main id="auth" class="page"><div class="auth"><h2>دخول / إنشاء حساب</h2><p style="color:#c9bfd9">استخدمي الإيميل وكلمة المرور.</p><input id="email" type="email" placeholder="الإيميل"><input id="password" type="password" placeholder="كلمة المرور"><button class="orange wide" onclick="login()">دخول</button><button class="outline wide" onclick="signup()">إنشاء حساب</button><div id="authMsg" class="msg hidden"></div></div></main>
+
+<main id="lib" class="page"><section class="section"><h2>مكتبتي</h2><div id="libContent"></div></section></main>
+
+
+<main id="payment" class="page">
+  <section class="section">
+    <div class="box" style="max-width:760px;margin:auto">
+      <h2>إتمام شراء لعبة خمنها</h2>
+      <p style="color:#c9bfd9">ادفعي بالبطاقة من خلال نموذج ميسر التجريبي. المبلغ: 24.99 ر.س</p>
+      <div class="msg" id="paymentMsg">هذه بيئة تجريبية. بعد نجاح الدفع سيتم تفعيل اللعبة تلقائيًا في مكتبتك.</div>
+      <div class="mysr-form" style="margin-top:20px"></div>
+      <button class="outline wide" onclick="showProduct()">رجوع لصفحة اللعبة</button>
+    </div>
+  </section>
+</main>
+
+<div class="gamewrap" id="gamewrap"><div class="gametop"><span>لعبة خمنها</span><button onclick="closeGame()">إغلاق</button></div><iframe id="frame"></iframe></div>
+
+<script>
+const SUPABASE_URL = "https://ghcdrmzkzlffnshtmmln.supabase.co";
+const SUPABASE_KEY = "sb_publishable_CHOZscIPojBXkCC7wzJiWw_uShA73ZU";
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let user = null;
+let owns = false;
+function $(id){return document.getElementById(id)}
+function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(id).classList.add('active');window.scrollTo(0,0); if(id==='product') check();}
+function showProduct(){show('product')}
+function updateNav(){$('loginBtn').classList.toggle('hidden',!!user);$('logoutBtn').classList.toggle('hidden',!user)}
+function msg(id,t){$(id).textContent=t;$(id).classList.remove('hidden')}
+async function init(){let r=await client.auth.getUser();user=r.data.user;updateNav();await check();}
+async function signup(){let email=$('email').value.trim(), password=$('password').value;if(!email||!password)return msg('authMsg','اكتبي الإيميل وكلمة المرور');let r=await client.auth.signUp({email,password});if(r.error)return msg('authMsg',r.error.message);user=r.data.user;updateNav();msg('authMsg','تم إنشاء الحساب. إذا طلب تأكيد الإيميل، أكديه ثم سجلي دخول.');}
+async function login(){let email=$('email').value.trim(), password=$('password').value;if(!email||!password)return msg('authMsg','اكتبي الإيميل وكلمة المرور');let r=await client.auth.signInWithPassword({email,password});if(r.error)return msg('authMsg',r.error.message);user=r.data.user;updateNav();await check();library();}
+async function logout(){await client.auth.signOut();user=null;owns=false;updateNav();show('home')}
+async function check(){if(!user){owns=false; if($('productMsg'))$('productMsg').textContent='سجلي دخول أولًا للتحقق من مكتبتك.'; return false;}let g=await client.from('games').select('id').eq('slug','khmnha').limit(1);if(g.error||!g.data.length){if($('productMsg'))$('productMsg').textContent='اللعبة غير موجودة في قاعدة البيانات.';return false;}let gameId=g.data[0].id;let p=await client.from('purchases').select('id').eq('game_id',gameId).eq('status','paid').limit(1);owns=!p.error&&p.data&&p.data.length>0;if($('buyNow')){$('buyNow').classList.toggle('hidden',owns);$('playNow').classList.toggle('hidden',!owns);$('productMsg').textContent=owns?'اللعبة موجودة في مكتبتك. اضغطي العب الآن.':'اللعبة غير مشتراة على هذا الحساب.'}return owns}
+async function library(){if(!user)return show('auth');show('lib');await check();$('libContent').innerHTML=owns?`<div class="grid"><div class="card"><div class="cover"><b>خمنها</b></div><div class="body"><h3>لعبة خمنها</h3><p>اللعبة مفعلة على حسابك.</p><button class="green wide" onclick="openGame()">العب الآن</button></div></div></div>`:`<div class="box"><h3>ما عندك ألعاب مشتراة الآن</h3><p>بعد الشراء تظهر الألعاب هنا.</p><button class="orange" onclick="showProduct()">عرض لعبة خمنها</button></div>`}
+function buy(){
+  if(!user) return show('auth');
+  showPayment();
+}
+
+function showPayment(){
+  show('payment');
+  setTimeout(initMoyasarForm, 250);
+}
+
+let moyasarStarted = false;
+function initMoyasarForm(){
+  const holder = document.querySelector('.mysr-form');
+  if(!holder || moyasarStarted) return;
+  moyasarStarted = true;
+  holder.innerHTML = '';
+  Moyasar.init({
+    element: '.mysr-form',
+    amount: 2499,
+    currency: 'SAR',
+    description: 'شراء لعبة خمنها',
+    publishable_api_key: 'pk_test_FrNxjyZ9FwBiT6p8Pabog2Db95cny8j8haRqBZEK',
+    callback_url: window.location.origin + window.location.pathname + '?payment=return',
+    supported_networks: ['mada', 'visa', 'mastercard'],
+    methods: ['creditcard'],
+    metadata: {
+      game: 'khmnha',
+      user_id: user ? user.id : ''
+    },
+    on_completed: async function(payment) {
+      console.log('Moyasar payment created:', payment);
+    },
+    on_failure: async function(error) {
+      if($('paymentMsg')) $('paymentMsg').textContent = 'فشلت عملية الدفع: ' + error;
+    }
+  });
+}
+
+async function handlePaymentReturn(){
+  const params = new URLSearchParams(window.location.search);
+  const paymentId = params.get('id');
+
+  if(params.get('payment') === 'return' || paymentId){
+    show('payment');
+
+    if(!paymentId){
+      if($('paymentMsg')) $('paymentMsg').textContent = 'رجعنا من ميسر، لكن لم يصل رقم العملية.';
+      return;
+    }
+
+    if($('paymentMsg')) $('paymentMsg').textContent = 'جاري التحقق من الدفع وتفعيل اللعبة...';
+
+    try{
+      const res = await fetch('/.netlify/functions/moyasar-webhook?id=' + encodeURIComponent(paymentId));
+      const data = await res.json();
+
+      if(data.ok){
+        if($('paymentMsg')) $('paymentMsg').textContent = 'تم الدفع بنجاح ✅ تم تفعيل لعبة خمنها في مكتبتك.';
+        await check();
+        setTimeout(()=>library(), 1200);
+      }else{
+        if($('paymentMsg')) $('paymentMsg').textContent = data.message || 'لم يتم تأكيد الدفع بعد.';
+      }
+    }catch(e){
+      if($('paymentMsg')) $('paymentMsg').textContent = 'حدث خطأ أثناء التحقق من الدفع. جرّبي تحديث الصفحة.';
+    }
+  }
+}
+async function openGame(){let ok=await check();if(!ok)return showProduct();$('frame').src='khmnha.html';$('gamewrap').classList.add('on')}
+function closeGame(){$('gamewrap').classList.remove('on');$('frame').src='about:blank'}
+init();
+handlePaymentReturn();
+</script>
+</body></html>
